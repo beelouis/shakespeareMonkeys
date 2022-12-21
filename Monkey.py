@@ -26,5 +26,8 @@ class Monkey:
     def typeString(self):
         string = ""
         for i in range(self.stringLength):
-            string += self.vocab[random.randint(0, len(self.vocab)-1)]
+            try:
+                string += self.vocab[random.randint(0, len(self.vocab)-1)]
+            except ValueError:
+                string = string
         return string

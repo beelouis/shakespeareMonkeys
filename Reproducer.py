@@ -1,3 +1,6 @@
+import random
+from Monkey import Monkey
+
 class Reproducer:
     def __init__(self, Pc, Pm):
         self.Pc = Pc

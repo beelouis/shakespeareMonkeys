@@ -1,3 +1,7 @@
+from Monkey import Monkey
+from Fitness import Fitness
+from Reproducer import Reproducer
+
 def init(popSize, length):
     population = []
     for i in range(popSize):
@@ -43,4 +47,3 @@ for i in range(numGenerations):
     for i, monkey in enumerate(population):
         monkey.setLabel(i)
         monkey.fitness = 0
-        
