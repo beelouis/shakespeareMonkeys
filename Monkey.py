@@ -1,21 +1,27 @@
+import random
+
 class Monkey:
     def __init__(self, label, stringLength):
         self.label = label
         self.stringLength = stringLength
-        self.alphabet = "abcdefgh"
-        self.genChromosome()
+        self.alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-    def genChromosome(self):
-        self.chrm = [random.randint(0, 1) for i in range(len(self.alphabet))]
-        self.vocab = [ch for i, ch in enumerate(self.alphabet) if self.chrm[i] == 1]
-        print("Chromosome for monkey", self.label, self.chrm)
-        print("Vocabulary:", self.vocab, "\n")
+    def setRanChrom(self):
+        self.chrom = [random.randint(0, 1) for i in range(len(self.alphabet))]
+        self.setVocabFromChrom()
 
-    def typeStringNaive(self):
-        string = ""
-        for i in range(self.stringLength):
-            string += self.alphabet[random.randint(0, len(self.alphabet)-1)]
-        return string
+    def setChrom(self, chrom):
+        self.chrom = chrom
+        self.setVocabFromChrom()
+
+    def setVocabFromChrom(self):
+        self.vocab = [ch for i, ch in enumerate(self.alphabet) if self.chrom[i] == 1]
+
+    def setFitness(self, fitness):
+        self.fitness = fitness
+
+    def setLabel(self, label):
+        self.label = label
 
     def typeString(self):
         string = ""

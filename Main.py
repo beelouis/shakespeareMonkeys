@@ -1,25 +1,46 @@
-def init(popSize, stringLength):
+def init(popSize, length):
     population = []
     for i in range(popSize):
-        population.append(Monkey(i, stringLength))
+        m = Monkey(i, length)
+        m.setRanChrom()
+        population.append(m)
+
     return population
 
 def iterateGeneration(population, generationCount):
-    print("==============================")
-    print("generation:", generationCount)
-    return [monkey.typeString() for monkey in population]
+    print("==========================================================================")
+    print("==========================================================================")
+    print("==========================================================================")
+    print("==========================================================================")
+    print("Generation:", generationCount)
+    return list([monkey.typeString() for monkey in population])
 
-targetString = "hi"
-stringLength = len(targetString)
-numMonkeys = 10
-population = init(numMonkeys, stringLength)
+targetString = "hello"
+numMonkeys = 50
+numPerPopulation = round(numMonkeys / 2)
 numGenerations = 200
+
+Pc = 0.8
+Pm = 0.01
+
+population = init(numMonkeys, len(targetString))
+fitness = Fitness(targetString, numPerPopulation)
+reproducer = Reproducer(Pc, Pm)
 
 for i in range(numGenerations):
     gen = iterateGeneration(population, i)
-    print(gen)
+    print("Output: ", gen, "\n")
     if targetString in gen:
         print("String found!")
         break
-    else:
-        print("String not found yet....")
+
+    fittest = fitness.computeFitness(population, gen)
+
+    children = reproducer.reproduce(fittest)
+
+    population = fittest + children
+
+    for i, monkey in enumerate(population):
+        monkey.setLabel(i)
+        monkey.fitness = 0
+        
