@@ -9,14 +9,14 @@ class Reproducer:
     def reproduce(self, parents):
         children = []
         for i, parent in enumerate(parents):
-            couple = [parent, parents[(i+1) % len(parents)]]
+            nextIndex = (i+1) % len(parents)
+            couple = [parent, parents[nextIndex]]
             if random.random() < self.Pc:
                 child = self.recombine(couple)
             else:
                 child = couple[random.randint(0, 1)]
             children.append(child)
         children = self.mutate(children)
-
         return children
 
     def recombine(self, parents):

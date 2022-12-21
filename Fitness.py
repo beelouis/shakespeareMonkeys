@@ -3,18 +3,13 @@ class Fitness:
         self.targetString = targetString
         self.numPerPopulation = numPerPopulation
 
-    def computeFitness(self, population, strings):
-        totalFitness = 1
-        targ = self.targetString
-
+    def computeFitness(self, population, generationOfStrings):
+        totalFitness = 0
         for i, monkey in enumerate(population):
             fitness = 0
-            for j, ch in enumerate(strings[i]):
-                if targ.count(ch) > 0:
-                    fitness += 1
-                    if targ[j] == ch or targ.count(ch) == strings[j].count(ch):
-                        fitness += 5
-
+            for ch in generationOfStrings[i]:
+                fitOfCh = 1 if self.targetString.count(ch) > 0 else 0
+                fitness += fitOfCh
             totalFitness += fitness
             monkey.setFitness(fitness)
         print("total fitness for this generation:", totalFitness)
