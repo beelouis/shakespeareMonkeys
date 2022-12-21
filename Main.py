@@ -22,7 +22,7 @@ def iterateGeneration(population, generationCount):
 targetString = "hello"
 numMonkeys = 50
 numPerPopulation = round(numMonkeys / 2)
-numGenerations = 100
+numGenerations = 200
 
 Pc = 0.8
 Pm = 0.01
@@ -39,9 +39,11 @@ for i in range(numGenerations):
         break
 
     fittest = fitness.computeFitness(population, gen)
+
     children = reproducer.reproduce(fittest)
 
     population = fittest + children
 
     for i, monkey in enumerate(population):
         monkey.setLabel(i)
+        monkey.fitness = 0

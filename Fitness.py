@@ -1,47 +1,33 @@
 import random
 
 class Fitness:
-    def __init__(self, targetString, numPerPopulation):
+    def __init__(self, targetString, parentsPerGen):
         self.targetString = targetString
-        self.numPerPopulation = numPerPopulation
+        self.parentsPerGen = parentsPerGen
 
-    def computeFitness(self, population, generationOfStrings):
+    def computeFitness(self, population, outputStrings):
         totalFitness = 1
+        target = self.targetString
+
         for i, monkey in enumerate(population):
-            monkey.fitness = 0
-            for j, ch in enumerate(generationOfStrings[i]):
-                if self.targetString.count(ch) > 0:
-                    monkey.fitness += 2
-                    if self.targetString.count(ch) > 1 and self.targetString.count(ch) < generationOfStrings[i].count(ch):
-                        monkey.fitness += 5
-                    elif self.targetString.count(ch) == generationOfStrings[i].count(ch):
-                        monkey.fitness += 10
+            fitness = 0
+            for j, ch in enumerate(outputStrings[i]):
+                if target.count(ch) > 0:
+                    fitness += 1
+                    if target[j] == ch:
+                        fitness += 5
+                    if target.count(ch) == outputStrings[j].count(ch):
+                        fitness += 5
 
-                    if self.targetString[j] == ch:
-                        print(f"monkey {monkey.label} got the {ch} in the right place at index {j}")
-                        monkey.fitness *= 2
-            totalFitness += monkey.fitness
-
+            totalFitness += fitness
+            monkey.setFitness(fitness)
         print("total fitness for this generation:", totalFitness)
-        for monkey in population:
-            monkey.setPropFitness(monkey.fitness / totalFitness)
-
         selected = self.orderAndSelect(population)
         return selected
 
     def orderAndSelect(self, population):
-        orderedList = sorted(population, key = lambda x:x.propFitness, reverse = False)
-#         for monkey in orderedList:
-#             print(f"monkey {monkey.label}, fitness: {monkey.propFitness}")
-
+        orderedList = sorted(population, key = lambda x:x.fitness, reverse = False)
         selected = []
-        while (len(selected) < self.numPerPopulation):
-            incsum = 0
-            r = random.random()
-            for monkey in orderedList:
-                incsum += monkey.propFitness
-                if incsum > r:
-                    selected.append(monkey)
-                    break
-
+        for i in range(self.numPerPopulation):
+            selected.append(orderedList[i])
         return selected

@@ -9,23 +9,32 @@ class Reproducer:
     def reproduce(self, parents):
         children = []
         for i, parent in enumerate(parents):
-            nextIndex = (i+1) % len(parents)
-            couple = [parent, parents[(i+1) % len(parents)]]
+            nextIndex = (i+1)%len(parents)
+            couple = [parent, parents[nextIndex]]
             if random.random() < self.Pc:
                 child = self.recombine(couple)
             else:
-                child = couple[random.randint(0, 1)]
+                child = couple[random.randint(0, 1)].duplicate()
             children.append(child)
         children = self.mutate(children)
         return children
 
     def recombine(self, parents):
+        p1 = parents[0]
+        p2 = parents[1]
         length = len(parents[0].chrom)
         locus = round(length / 2)
-        childChrom = parents[0].chrom[:locus] + parents[1].chrom[locus:]
-        childLabel = int(str(parents[0].label) + str(parents[1].label))
-        child = Monkey(childLabel, parents[0].stringLength)
+
+        childChrom = p1.chrom[:locus] + p2.chrom[locus:]
+        childLabel = int(str(p1.label) + str(p2.label))
+        child = Monkey(childLabel, p1.stringLength)
+
         child.setChrom(childChrom)
+        child.
+
+        setWeights = [i*j for weight in child.]
+
+        # weights = [w for i in range(ln)]
         return child
 
     def mutate(self, children):
