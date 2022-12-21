@@ -1,3 +1,5 @@
+import random
+
 class Monkey:
     def __init__(self, label, stringLength):
         self.label = label

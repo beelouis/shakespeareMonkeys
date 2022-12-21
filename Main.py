@@ -1,3 +1,5 @@
+from Monkey import Monkey
+
 def init(popSize, stringLength):
     population = []
     for i in range(popSize):
