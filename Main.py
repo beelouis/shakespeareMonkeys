@@ -18,6 +18,7 @@ def iterateGeneration(population, generationCount):
     print("==========================================================================")
     print("Generation:", generationCount)
     return list([monkey.typeString() for monkey in population])
+
 targetString = "hello"
 numMonkeys = 50
 numPerPopulation = round(numMonkeys / 2)
