@@ -10,7 +10,7 @@ class Reproducer:
         children = []
         for i, parent in enumerate(parents):
             nextIndex = (i+1) % len(parents)
-            couple = [parent, parents[nextIndex]]
+            couple = [parent, parents[(i+1) % len(parents)]]
             if random.random() < self.Pc:
                 child = self.recombine(couple)
             else:

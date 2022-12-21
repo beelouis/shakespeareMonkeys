@@ -20,6 +20,9 @@ class Monkey:
     def setFitness(self, fitness):
         self.fitness = fitness
 
+    def setPropFitness(self, propFitness):
+        self.propFitness = propFitness
+
     def setLabel(self, label):
         self.label = label
 
